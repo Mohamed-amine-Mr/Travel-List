@@ -1,12 +1,70 @@
-# React + Vite
+# 🧳 Farm Away - Packing List App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a beginner-friendly React project built to practice core concepts like **state management**, **component structure**, and **JavaScript logic** in a real-world UI.
 
-Currently, two official plugins are available:
+## 🚀 Project Goals
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is focused on helping you deeply understand the following React and JavaScript fundamentals:
 
-## Expanding the ESLint configuration
+- 🧠 **React state management** using `useState`
+- 📤 **Lifting state up** and passing data between components via props
+- 🔁 Dynamic list rendering with `map()`
+- ❌ Filtering data with `filter()`
+- ↕️ Sorting data based on user selection
+- 🧾 Controlled form elements (`input`, `select`) using state
+- 📦 Clean **props destructuring** for better readability and maintainability
+- 💡 Building reusable and readable component structures
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✅ Current Status (Initial Commit)
+
+The initial commit includes:
+
+- Static UI only (no interactivity or state yet)
+- Clean JSX structure for all components:
+  - `App.jsx`
+  - `Form`
+  - `PackingList`
+  - `Item`
+  - `Stats`
+- Base styles with a complete `index.css`
+- React entry point is configured (default Vite setup)
+
+At this stage, the app layout is ready for logic to be plugged in.
+
+## 🛠️ Upcoming Features
+
+In upcoming commits, we will:
+
+- Add interactivity using `useState`
+- Control form elements and manage user input
+- Allow users to:
+  - Add new items
+  - Toggle packed status
+  - Delete items
+- Implement sorting logic
+- Display real-time stats
+- Use props effectively between components
+- Lift shared state to the top-level where needed
+
+## 🧱 Project Structure (Starter Files)
+
+src/
+├── App.jsx # Main React component (static for now)
+├── index.css # Styling file
+└── main.jsx # Entry point (React + Vite)
+
+
+## 📌 Learning Focus
+
+This project is ideal for practicing:
+
+- Thinking in components
+- One-way data flow
+- Managing UI state
+- Writing clean and maintainable code
+
+## 📄 Notes
+
+This README will be updated as the project progresses. Right now, it reflects only the initial static setup.
+
+Stay tuned for logic, interactivity, and advanced React patterns in the next commits!
