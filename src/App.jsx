@@ -19,7 +19,9 @@ function Form() {
     e.preventDefault();
     setDescritpion("");
     setQuantity(1);
-    // console.log(quantity);
+
+    let newItem={description,quantity}
+    console.log(newItem);
   }
   return (
     <form className="add-form" onSubmit={handleSubmit}>  
