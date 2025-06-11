@@ -1,5 +1,5 @@
 import "./index.css";
-
+import { useState } from "react";
 function App() {
   return (
     <div className="app">
@@ -12,8 +12,12 @@ function App() {
 }
 
 function Form() {
+  const [description,setDescritpion]=useState("");
   function handleSubmit(e){
     e.preventDefault();
+    console.log(description)
+    setDescritpion("")
+
   }
   return (
     <form className="add-form" onSubmit={handleSubmit}>  
@@ -25,7 +29,7 @@ function Form() {
           </option>
         ))}
       </select>
-      <input type="text" placeholder="Item..." />
+      <input value={description} type="text" placeholder="Item..." onChange={(e)=>setDescritpion(e.target.value)}/>
       <button>Add</button>
     </form>
   );
