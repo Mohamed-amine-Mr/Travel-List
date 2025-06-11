@@ -9,6 +9,7 @@ let handleDescription =(e) => setDescription(e.target.value)
 let handleQuantity =(e) => setQuantity(Number(e.target.value))
 function handleSubmit(e){
     e.preventDefault();
+  if(!description)  return;
     
     setDescription("");
     setQuantity(1);
