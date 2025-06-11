@@ -1,38 +1,43 @@
 import "./index.css";
 import { useState } from "react";
 function App() {
-  const [description,setDescritpion]=useState("");
+  const [description,setDescription]=useState("");
   const [quantity,setQuantity]=useState(1);
-  
-  function handleSubmit(e){
+  const [items,setItems]=useState([]);
+
+let handleDescription =(e) => setDescription(e.target.value)
+let handleQuantity =(e) => setQuantity(Number(e.target.value))
+function handleSubmit(e){
     e.preventDefault();
-    setDescritpion("");
+    
+    setDescription("");
     setQuantity(1);
 
-    let newItem={description,quantity}
-    console.log(newItem);
+    let newItem={id:Date.now(),description,quantity}
+    setItems([...items,newItem]);
   }
+ 
   return (
     <div className="app">
       <h1>🌴 Farm Away 💼</h1>
       <Form 
-        handleSubmit={handleSubmit} 
-        setQuantity={setQuantity}
+        onSubmit={handleSubmit} 
         quantity={quantity}
         description={description}
-        setDescritpion={setDescritpion}/>
-      <PackingList />
+        handleQuantity={handleQuantity}
+        handleDescription={handleDescription}/>
+      <PackingList items={items}/>
       <Stats />
     </div>
   );
 }
 
-function Form({ onSubmit, onQuantityChange, quantity, description, onDescriptionChange }) {
+function Form({ onSubmit, handleQuantity, quantity, description, handleDescription }) {
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <h3>What do you need for your trip?</h3>
       <select
-        onChange={(e) => onQuantityChange(Number(e.target.value))}
+        onChange={handleQuantity}
         value={quantity}
       > 
         {/* we add Number() because e.target.value return string and we want number */}
@@ -46,18 +51,19 @@ function Form({ onSubmit, onQuantityChange, quantity, description, onDescription
         value={description}
         type="text"
         placeholder="Item..."
-        onChange={(e) => onDescriptionChange(e.target.value)}
+        onChange={handleDescription}
       />     
       <button>Add</button>
     </form>
   );
 }
 
-function PackingList() {
+function PackingList({items}) {
   return (
     <div className="list">
       <ul>
-        <Item />
+        {items.map(item=><Item item={item}key={item.id}/>)}
+        
       </ul>
       <div className="actions">
         <select>
@@ -70,11 +76,11 @@ function PackingList() {
   );
 }
 
-function Item() {
+function Item({item}) {
   return (
     <li>
       <input type="checkbox" />
-      <span>1 Sample Item</span>
+      <span>{item.quantity} {item.description}</span>
       <button>❌</button>
     </li>
   );
