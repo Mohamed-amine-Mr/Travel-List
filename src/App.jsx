@@ -9,7 +9,7 @@ let handleDescription =(e) => setDescription(e.target.value)
 let handleQuantity =(e) => setQuantity(Number(e.target.value))
 function handleSubmit(e){
     e.preventDefault();
-  if(!description)  return;
+    if(!description)  return;
     
     setDescription("");
     setQuantity(1);
@@ -17,6 +17,9 @@ function handleSubmit(e){
     let newItem={id:Date.now(),description,quantity}
     setItems([...items,newItem]);
   }
+function deleteItem(idToRemove){
+  setItems(items.filter(item=>item.id!==idToRemove))
+}
  
   return (
     <div className="app">
@@ -27,7 +30,7 @@ function handleSubmit(e){
         description={description}
         handleQuantity={handleQuantity}
         handleDescription={handleDescription}/>
-      <PackingList items={items}/>
+      <PackingList items={items} deleteItem={deleteItem}/>
       <Stats />
     </div>
   );
@@ -59,11 +62,11 @@ function Form({ onSubmit, handleQuantity, quantity, description, handleDescripti
   );
 }
 
-function PackingList({items}) {
+function PackingList({items,deleteItem}) {
   return (
     <div className="list">
       <ul>
-        {items.map(item=><Item item={item}key={item.id}/>)}
+        {items.map(item=><Item item={item}key={item.id}deleteItem={deleteItem}/>)}
         
       </ul>
       <div className="actions">
@@ -77,12 +80,12 @@ function PackingList({items}) {
   );
 }
 
-function Item({item}) {
+function Item({item,deleteItem}) {
   return (
     <li>
       <input type="checkbox" />
       <span>{item.quantity} {item.description}</span>
-      <button>❌</button>
+      <button onClick={()=>deleteItem(item.id)}>❌</button>
     </li>
   );
 }
