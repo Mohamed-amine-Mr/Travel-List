@@ -13,16 +13,18 @@ function App() {
 
 function Form() {
   const [description,setDescritpion]=useState("");
+  const [quantity,setQuantity]=useState(1);
+  
   function handleSubmit(e){
     e.preventDefault();
-    console.log(description)
-    setDescritpion("")
-
+    setDescritpion("");
+    setQuantity(1);
+    // console.log(quantity);
   }
   return (
     <form className="add-form" onSubmit={handleSubmit}>  
       <h3>What do you need for your trip?</h3>
-      <select>
+      <select onChange={(e)=>setQuantity(Number(e.target.value))}>{/* we add Number() because e.target.value return string and we want number */}
         {Array.from({ length: 20 }, (_, i) => (
           <option value={i + 1} key={i + 1}>
             {i + 1}
