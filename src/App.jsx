@@ -18,9 +18,10 @@ function handleSubmit(e){
     let newItem={id:Date.now(),description,quantity,packed:false}
     setItems([...items,newItem]);
   }
-  function togglePacked(id){
+  
+  function togglePacked(idToRemove){
     setItems(items.map(item=>
-    item.id ===id? {...item,packed:!item.packed}:{} 
+    item.id ===idToRemove? {...item,packed:!item.packed}:item 
     ))
   }
 function deleteItem(idToRemove){
@@ -95,7 +96,7 @@ function PackingList({items,deleteItem,togglePacked={togglePacked}}) {
 function Item({item,deleteItem,togglePacked}) {
   return (
     <li>
-      <input type="checkbox" onChange={()=>togglePacked(item.id)}/>    
+      <input type="checkbox"value={item.packed} onChange={()=>togglePacked(item.id)}/>    
       <span className="select"style={item.packed ? { textDecoration: "line-through" } : {}}>{item.quantity} {item.description}</span>
       <button onClick={() => deleteItem(item.id)}>❌</button>
     </li>
