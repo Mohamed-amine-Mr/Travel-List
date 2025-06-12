@@ -7,6 +7,7 @@ function App() {
 
 let handleDescription =(e) => setDescription(e.target.value)
 let handleQuantity =(e) => setQuantity(Number(e.target.value))
+
 function handleSubmit(e){
     e.preventDefault();
     if(!description)  return;
@@ -14,8 +15,13 @@ function handleSubmit(e){
     setDescription("");
     setQuantity(1);
 
-    let newItem={id:Date.now(),description,quantity}
+    let newItem={id:Date.now(),description,quantity,packed:false}
     setItems([...items,newItem]);
+  }
+  function togglePacked(id){
+    setItems(items.map(item=>
+    item.id ===id? {...item,packed:!item.packed}:{} 
+    ))
   }
 function deleteItem(idToRemove){
   setItems(items.filter(item=>item.id!==idToRemove))
@@ -30,7 +36,7 @@ function deleteItem(idToRemove){
         description={description}
         handleQuantity={handleQuantity}
         handleDescription={handleDescription}/>
-      <PackingList items={items} deleteItem={deleteItem}/>
+      <PackingList items={items} deleteItem={deleteItem} togglePacked={togglePacked}/>
       <Stats />
     </div>
   );
@@ -62,11 +68,17 @@ function Form({ onSubmit, handleQuantity, quantity, description, handleDescripti
   );
 }
 
-function PackingList({items,deleteItem}) {
+function PackingList({items,deleteItem,togglePacked={togglePacked}}) {
   return (
     <div className="list">
-      <ul>
-        {items.map(item=><Item item={item}key={item.id}deleteItem={deleteItem}/>)}
+      <ul >
+        {items.map(item=>
+        <Item 
+        item={item}
+        key={item.id}
+        deleteItem={deleteItem}
+        togglePacked={togglePacked}
+        />)}
         
       </ul>
       <div className="actions">
@@ -80,12 +92,12 @@ function PackingList({items,deleteItem}) {
   );
 }
 
-function Item({item,deleteItem}) {
+function Item({item,deleteItem,togglePacked}) {
   return (
     <li>
-      <input type="checkbox" />
-      <span>{item.quantity} {item.description}</span>
-      <button onClick={()=>deleteItem(item.id)}>❌</button>
+      <input type="checkbox" onChange={()=>togglePacked(item.id)}/>    
+      <span className="select"style={item.packed ? { textDecoration: "line-through" } : {}}>{item.quantity} {item.description}</span>
+      <button onClick={() => deleteItem(item.id)}>❌</button>
     </li>
   );
 }
