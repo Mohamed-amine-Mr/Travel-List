@@ -106,10 +106,12 @@ function Item({item,deleteItem,togglePacked}) {
 
 function Stats({items}) {
 const numItems = items.length;
+const numPacked = items.filter(item=>item.packed).length;
+console.log(numPacked);
 
   return (
     <footer className="stats">
-    <em>💼 You have {numItems} items on your list, and you already packed %</em>
+    <em>💼 You have {numItems} items on your list, and you already packed {numPacked}%</em>
       {/* <em>Start adding items to your packing list 🚀</em> */}
     </footer>
   );
