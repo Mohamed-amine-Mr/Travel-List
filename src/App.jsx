@@ -1,16 +1,17 @@
 import "./index.css";
 import { useState } from "react";
+
 function App() {
   const [description,setDescription]=useState("");
   const [quantity,setQuantity]=useState(1);
   const [items,setItems]=useState([]);
 
-let handleDescription =(e) => setDescription(e.target.value)
-let handleQuantity =(e) => setQuantity(Number(e.target.value))
+  let handleDescription =(e) => setDescription(e.target.value)
+  let handleQuantity =(e) => setQuantity(Number(e.target.value))
 
-function handleSubmit(e){
+  function handleSubmit(e){
     e.preventDefault();
-    if(!description)  return;
+    if(!description)return;
     
     setDescription("");
     setQuantity(1);
@@ -24,10 +25,10 @@ function handleSubmit(e){
     item.id ===idToRemove? {...item,packed:!item.packed}:item 
     ))
   }
-function deleteItem(idToRemove){
+  function deleteItem(idToRemove){
   setItems(items.filter(item=>item.id!==idToRemove))
-}
- 
+  }
+
   return (
     <div className="app">
       <h1>🌴 Farm Away 💼</h1>
@@ -38,7 +39,7 @@ function deleteItem(idToRemove){
         handleQuantity={handleQuantity}
         handleDescription={handleDescription}/>
       <PackingList items={items} deleteItem={deleteItem} togglePacked={togglePacked}/>
-      <Stats />
+      <Stats items={items}/>
     </div>
   );
 }
@@ -103,10 +104,13 @@ function Item({item,deleteItem,togglePacked}) {
   );
 }
 
-function Stats() {
+function Stats({items}) {
+const numItems = items.length;
+
   return (
     <footer className="stats">
-      <em>Start adding items to your packing list 🚀</em>
+    <em>💼 You have {numItems} items on your list, and you already packed %</em>
+      {/* <em>Start adding items to your packing list 🚀</em> */}
     </footer>
   );
 }
